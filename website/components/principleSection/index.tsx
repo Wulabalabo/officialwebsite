@@ -10,7 +10,7 @@ const PrincipleSection = () => {
             <p className="self-center text-5xl text-white font-bold">
               CORE PRINCIPLES
             </p>
-            <div className="absolute top-[30%] self-center w-4/6 h-1/2 bg-white rounded-[60px]">
+            <div className="absolute top-[30%] self-center lg:w-4/6 lg:h-1/2 bg-white rounded-[60px]">
               <div className="absolute top-10 left-5">
                 <Image
                   src={"/principle/arrow_b.png"}
@@ -34,8 +34,8 @@ const PrincipleSection = () => {
               ></Image>
             </div>
 
-            <div className="flex w-4/6 space-x-16 justify-center self-center z-20">
-              <div className="lg:scale-75 w-2/5">
+            <div className="lg:flex lg:w-4/6 space-x-16 justify-center self-center z-20">
+              <div className="scale-75 lg:w-2/5">
                 <Phone></Phone>
               </div>
               <div className="self-center w-3/5">
@@ -96,7 +96,7 @@ const PrincipleSection = () => {
               alt={"bg"}
               width={1440}
               height={900}
-              className="absolute top-10 max-w-screen-xl self-center"
+              className="hidden lg:block lg:absolute top-10 max-w-screen-xl self-center"
             ></Image>
           </div>
         </div>

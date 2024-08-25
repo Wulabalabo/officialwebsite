@@ -26,7 +26,7 @@ const Navbar = () => {
       <div className="lg:h-[149px] flex container justify-between items-center">
         <div className="flex-shrink-0">
           <Image
-            src={"/main/NextartLogo.png"}
+            src={"/NextartLogo.png"}
             alt={"NextartLogo"}
             width={203}
             height={0}

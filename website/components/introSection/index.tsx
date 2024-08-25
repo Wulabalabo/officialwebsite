@@ -32,7 +32,7 @@ const IntroSection = () => {
             />
           </div>
           <div>
-            <p className="w-[80%] text-xl">
+            <p className="lg:w-[80%] text-xl p-5">
               In the Web3 era, We have the opportunity to create a new world
               where everyone can participate in the economy and share the value
               of the network. We are building a decentralized platform that
