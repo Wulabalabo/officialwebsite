@@ -22,15 +22,15 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="absolute z-50 w-full bg-gray-950 px-4 py-4 md:py-8">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="z-50 w-full bg-gray-950 px-4">
+      <div className="lg:h-[149px] flex container justify-between items-center">
         <div className="flex-shrink-0">
           <Image
             src={"/main/NextartLogo.png"}
             alt={"NextartLogo"}
-            width={120}
-            height={40}
-            className="md:w-[204px]"
+            width={203}
+            height={0}
+            className="w-[204px]"
           />
         </div>
         <div className="hidden md:flex space-x-4 lg:space-x-8">
