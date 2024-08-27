@@ -1,7 +1,7 @@
 import Image from "next/image";
 const IntroSection = () => {
   return (
-    <section>
+    <section className="max-w-[1920px] mx-auto bg-white">
       <div className="flex flex-col lg:flex-row w-full lg:px-5 lg:space-x-10">
         <div className="relative flex flex-col lg:p-16 lg:w-1/2 lg:justify-between">
           <div className="relative flex max-w-lg">

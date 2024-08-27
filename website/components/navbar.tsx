@@ -22,7 +22,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="z-50 w-full bg-gray-950 px-4">
+    <nav className="w-full bg-gray-950 px-4 fixed top-0 left-0 right-0 z-50">
       <div className="lg:h-[149px] flex container justify-between items-center">
         <div className="flex-shrink-0">
           <Image

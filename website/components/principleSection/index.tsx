@@ -4,7 +4,7 @@ import Image from "next/image";
 
 const PrincipleSection = () => {
     return (
-      <section className="bg-bright-red-c">
+      <section className="bg-bright-red-c max-w-[1920px] mx-auto">
         <div className="relative">
           <div className="flex flex-col p-10">
             <p className="self-center text-5xl text-white font-bold">
@@ -34,11 +34,11 @@ const PrincipleSection = () => {
               ></Image>
             </div>
 
-            <div className="lg:flex lg:w-4/6 space-x-16 justify-center self-center z-20">
+            <div className="lg:flex lg:w-4/6 lg:space-x-16 justify-center lg:self-center z-20">
               <div className="scale-75 lg:w-2/5">
                 <Phone></Phone>
               </div>
-              <div className="self-center w-3/5">
+              <div className="lg:w-3/5 p-5 flex flex-col justify-center">
                 <div className="flex flex-col space-y-2">
                   <p className="text-black text-xl font-bold">
                     Empowring Creators
@@ -76,7 +76,7 @@ const PrincipleSection = () => {
               </div>
             </div>
 
-            <div className="absolute bottom-5 right-[5%]">
+            <div className="absolute bottom-5 right-[5%] hidden lg:block">
               <Image
                 src={"/principle/arrow_w.png"}
                 alt={"arrow_b"}

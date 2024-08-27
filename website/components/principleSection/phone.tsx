@@ -1,7 +1,7 @@
 import Image from "next/image";
 const phone = () => {
   return (
-    <div className="w-[436px] rounded-md bg-gradient-to-r from-safety-yellow to-bright-red-c">
+    <div className="w-full lg:w-[436px] rounded-md bg-gradient-to-r from-safety-yellow to-bright-red-c">
       <div className="p-1 h-[718px] flex rounded-md">
         <div className="z-10 flex flex-col p-5 w-full">
           <Image
