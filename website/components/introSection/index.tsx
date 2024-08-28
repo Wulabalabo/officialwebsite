@@ -1,7 +1,13 @@
 import Image from "next/image";
-const IntroSection = () => {
+import React, { forwardRef } from "react";
+
+interface IntroSectionProps {
+  className?: string;
+}
+
+const IntroSection = forwardRef<HTMLElement, IntroSectionProps>((props, ref) => {
   return (
-    <section className="max-w-[1920px] mx-auto bg-white">
+    <section ref={ref} className={`max-w-[1920px] mx-auto pt-20 bg-white ${props.className}`}>
       <div className="flex flex-col lg:flex-row w-full lg:px-5 lg:space-x-10">
         <div className="relative flex flex-col lg:p-16 lg:w-1/2 lg:justify-between">
           <div className="relative flex max-w-lg">
@@ -88,6 +94,6 @@ const IntroSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default IntroSection;

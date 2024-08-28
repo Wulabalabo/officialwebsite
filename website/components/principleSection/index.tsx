@@ -1,10 +1,14 @@
+import { forwardRef } from "react";
 import Phone from "./phone";
 import Image from "next/image";
 
+interface PrincipleSectionProps {
+  className?: string;
+}
 
-const PrincipleSection = () => {
+const PrincipleSection = forwardRef<HTMLElement, PrincipleSectionProps>((props, ref) => {
     return (
-      <section className="bg-bright-red-c max-w-[1920px] mx-auto">
+      <section ref={ref} className={`bg-bright-red-c max-w-[1920px] mx-auto ${props.className}`}>
         <div className="relative">
           <div className="flex flex-col p-10">
             <p className="self-center text-5xl text-white font-bold">
@@ -102,7 +106,7 @@ const PrincipleSection = () => {
         </div>
       </section>
     );
-}
+});
 
 
 export default PrincipleSection;
