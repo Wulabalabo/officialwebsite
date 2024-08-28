@@ -108,5 +108,6 @@ const PrincipleSection = forwardRef<HTMLElement, PrincipleSectionProps>((props, 
     );
 });
 
+PrincipleSection.displayName = 'PrincipleSection';
 
 export default PrincipleSection;

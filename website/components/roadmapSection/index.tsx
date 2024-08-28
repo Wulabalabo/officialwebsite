@@ -41,4 +41,6 @@ const RoadmapSection = forwardRef<HTMLElement, RoadmapSectionProps>((props, ref)
     )
 });
 
+RoadmapSection.displayName = 'RoadmapSection';
+
 export default RoadmapSection;

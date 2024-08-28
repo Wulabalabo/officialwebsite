@@ -96,4 +96,6 @@ const IntroSection = forwardRef<HTMLElement, IntroSectionProps>((props, ref) => 
   );
 });
 
+IntroSection.displayName = 'IntroSection';
+
 export default IntroSection;
