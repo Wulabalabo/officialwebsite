@@ -33,7 +33,7 @@ const IntroLeft = () => {
         </div>
         <div>
           <p className="text-xl p-5">
-          In the Web3 era, we have the opportunity to leverage blockchain technology and smart contracts to redefine the process of IP creation, incubation, and monetization. NEXTART was born to address these challenges as a decentralized IP incubation platform. By integrating blockchain technology, NFTs, and the concept of DAOs, NEXTART rebalances the rights and responsibilities of all participants involved in IP incubation.<span className="text-xl font-bold"> Let's collaborate to create a native IP for the Web3 world!</span>
+          In the Web3 era, we have the opportunity to leverage blockchain technology and smart contracts to redefine the process of IP creation, incubation, and monetization. NEXTART was born to address these challenges as a decentralized IP incubation platform. By integrating blockchain technology, NFTs, and the concept of DAOs, NEXTART rebalances the rights and responsibilities of all participants involved in IP incubation.<span className="text-xl font-bold"> Let&apos;s collaborate to create a native IP for the Web3 world!</span>
           </p>
         </div>
         <div>

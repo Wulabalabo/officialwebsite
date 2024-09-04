@@ -84,7 +84,7 @@ const MainSection = forwardRef<HTMLElement, MainSectionProps>((props, ref) => {
           <div className="w-full flex justify-center items-center">
             <div className="lg:min-h-[400px] flex flex-col justify-center gap-y-6 lg:gap-y-20 text-center lg:text-left z-10">
               <p ref={titleRef} className="uppercase hidden lg:block lg:text-white text-xl lg:text-4xl xl:text-4xl font-bold leading-tight">
-                {"Let's build the future together"}
+                Let&apos;s build the future together
               </p>
               <div className="flex justify-center lg:justify-start gap-x-6 lg:gap-x-10">
                 <FaTwitter className="text-blue-400 lg:text-white text-6xl lg:text-3xl xl:text-6xl" />
