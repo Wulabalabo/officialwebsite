@@ -1,6 +1,6 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
 
 
@@ -61,13 +61,23 @@
   }
 }
 
+/* globals.css */
+.text-gradient {
+  background: linear-gradient(to right, #FFD700, #FF4500); /* 这里定义你的渐变颜色 */
+  -webkit-background-clip: text;
+  background-clip: text;
+  /* Add this line for compatibility */
+  -webkit-text-fill-color: transparent;
+}
 
 
-  @layer base {
-    * {
-      @apply border-border;
-    }
-    body {
-      @apply bg-background text-foreground;
-    }
+
+@layer base {
+  * {
+    @apply border-border;
   }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

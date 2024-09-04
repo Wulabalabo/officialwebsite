@@ -7,75 +7,68 @@ import { Menu } from "lucide-react";
 import gsap from 'gsap';
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText } from "gsap/SplitText";
+import { create } from 'zustand';
+import { FaAngleDown} from "react-icons/fa6";
+
+// 创建一个简单的状态存储
+interface NavbarStore {
+  animationComplete: boolean
+  setAnimationComplete: (complete: boolean) => void
+}
+
+export const useNavbarStore = create<NavbarStore>((set) => ({
+  animationComplete: false,
+  setAnimationComplete: (complete) => set({ animationComplete: complete }),
+}))
 
 const Navbar = () => {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navRef = useRef(null)
-  const titleRef = useRef<HTMLParagraphElement>(null)
+  const navRef = useRef(null);
+  const [imagesLoaded, setImagesLoaded] = useState(0);
 
   useGSAP(() => {
-    gsap.registerPlugin(ScrollTrigger, SplitText);
+    if (imagesLoaded === 7) { // 7 is the total number of images
+      gsap.registerPlugin(ScrollTrigger);
 
-    // 分割文本
-    const splitText = new SplitText(titleRef.current, { type: "chars" });
-    const chars = splitText.chars;
+      const letters = gsap.utils.toArray<HTMLImageElement>('.logo-letter');
+      
+      // 保留原有的弹跳动画
+      letters.forEach((letter, index) => {
+        gsap.to(letter, {
+          y: -25,
+          duration: 1,
+          ease: "elastic.out",
+          delay: index * 0.1,
+          repeat: -1,
+          yoyo: true
+        });
+      });
 
-    // 为每个字符设置初始样式
-    gsap.set(chars, {
-      color: 'white',
-      display: 'inline-block',
-      opacity: 1,
-      y: 0,
-    });
+      // 创建一个新的时间轴用于滚动动画
+      const scrollTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: navRef.current,
+          start: "top center",
+          end: "bottom top",
+          markers: true,
+          scrub: true,
+        }
+      });
 
-    // 创建波浪动画
-    const tl = gsap.timeline({
-      repeat: -1,
-    });
-
-    tl.to(chars, {
-      y: -20,
-      duration: 0.5,
-      stagger: {
-        each: 0.05,
-        repeat: 1,
-        yoyo: true,
-      },
-      ease: 'sine.inOut',
-    });
-
-    // 滚动触发的动画
-    const scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: navRef.current,
-        start: "50% top",
-        end: "600%",
-        scrub: true
-      }
-    });
-
-    scrollTl.to(chars, {
-      yPercent: 800,
-      opacity: 0,
-      duration: 5,
-      stagger: 0.05,
-      ease: 'power2.inOut',
-    })
-    .to(navRef.current, {
-      yPercent: 0,
-      opacity: 1,
-      duration: 5
-    }, "<");
-
-    // 初始状态设置
-    gsap.set(navRef.current, { yPercent: 100, opacity: 0 });
-
-    return () => {
-      splitText.revert();
+      // 添加滚动动画到时间轴
+      scrollTl.to(".logo-container", {
+        y: 500, // 在当前y位置基础上向下移动
+        opacity: 0,
+        stagger: 0.05,
+        ease: "power2.in"
+      });
     }
-  }, []);
+  }, { dependencies: [imagesLoaded], scope: navRef });
+
+  const handleImageLoad = () => {
+    setImagesLoaded(prev => prev + 1);
+  };
 
   const handleButtonClick = (link: string) => {
     router.push(link);
@@ -91,12 +84,21 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="h-svh flex justify-center items-center bg-black">
-        <p ref={titleRef} className="text-9xl uppercase text-white tracking-tighter font-bold opacity-100">
-          NEXT ART
-        </p>
+      <div ref={navRef} className="h-svh flex justify-center items-center bg-black">
+        <div className="logo-container flex space-x-4 w-screen justify-center scale-[45%] lg:scale-[100%]">
+          <Image src="/logoText/N.png" alt="NextartLogo" width={102} height={127.5} className="logo-letter" onLoad={handleImageLoad} priority />
+          <Image src="/logoText/E.png" alt="NextartLogo" width={99} height={127.5} className="logo-letter" onLoad={handleImageLoad} priority />
+          <Image src="/logoText/X.png" alt="NextartLogo" width={102} height={127.5} className="logo-letter" onLoad={handleImageLoad} priority />
+          <Image src="/logoText/FT.png" alt="NextartLogo" width={101.5} height={127.5} className="logo-letter" onLoad={handleImageLoad} priority />
+          <Image src="/logoText/A.png" alt="NextartLogo" width={122} height={127.5} style={{marginLeft: "50px"}} className="logo-letter" onLoad={handleImageLoad} priority />
+          <Image src="/logoText/R.png" alt="NextartLogo" width={95.5} height={127.5} className="logo-letter" onLoad={handleImageLoad} priority />
+          <Image src="/logoText/T.png" alt="NextartLogo" width={101.5} height={127.5} className="logo-letter" onLoad={handleImageLoad} priority />
+        </div>
       </div>
-      <div ref={navRef} className=" w-full bg-gray-950 px-4 fixed top-0 left-0 right-0 z-50">
+      <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+        <FaAngleDown className="text-white text-4xl animate-bounce" />
+      </div>
+      {/*<div ref={navRef} className=" w-full bg-gray-950 px-4 fixed top-0 left-0 right-0 z-50">
         <div className="lg:h-[149px] flex container justify-between items-center">
           <div className="flex-shrink-0">
             <Image
@@ -126,9 +128,9 @@ const Navbar = () => {
           >
             <Menu />
           </Button>
-        </div>
-      </div>
-      {isMenuOpen && (
+        </div> 
+      </div>*/}
+      {/* {isMenuOpen && (
         <div className="md:hidden mt-4">
           {navItems.map((item) => (
             <Button
@@ -141,7 +143,7 @@ const Navbar = () => {
             </Button>
           ))}
         </div>
-      )}
+      )} */}
     </nav>
 
   );

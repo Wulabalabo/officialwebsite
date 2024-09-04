@@ -1,10 +1,11 @@
 "use client";
 import { useGSAP } from "@gsap/react";
 import Image from "next/image";
-import { useState, useEffect, forwardRef, useRef} from "react";
+import { useState, useEffect, forwardRef, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { FaTwitter,FaTelegram,FaDiscord } from "react-icons/fa";
+import { FaTwitter, FaTelegram, FaDiscord } from "react-icons/fa";
+import NextartIP from "../NextartIP";
 
 // 确保在组件外部注册 SplitText 插件
 gsap.registerPlugin(SplitText);
@@ -19,7 +20,6 @@ interface MainSectionProps {
 }
 
 const MainSection = forwardRef<HTMLElement, MainSectionProps>((props, ref) => {
-  const [rotation, setRotation] = useState<Rotation>({ x: 0, y: 0 });
   const bodyRef = useRef<HTMLDivElement>(null);
   const arrow1Ref = useRef<HTMLImageElement>(null);
   const arrow2Ref = useRef<HTMLImageElement>(null);
@@ -40,24 +40,26 @@ const MainSection = forwardRef<HTMLElement, MainSectionProps>((props, ref) => {
     const tl = gsap.timeline({ repeat: -1 });
 
     [arrow1Ref, arrow2Ref, arrow3Ref].forEach((arrowRef, index) => {
-      tl.fromTo(arrowRef.current, 
-        { x: "-100%" },  // Start from left edge of the screen
+      gsap.set(arrowRef.current, { x: "-100%" });
+      tl.fromTo(arrowRef.current,
+        { x: "-10%", opacity: 0 },
         {
-          x: "200vw",    // Move to right edge of the screen
-          duration: 20,   // Increased duration for full-screen movement
+          x: "100vw", 
+          opacity: 1,
+          duration: 10,
           ease: "none",
-          delay: index * 1.5  // Increased delay between arrows
+          delay: index * 1.5
         },
-      0);
+        0);
     });
 
     // Title animation using SplitText for individual character bounce
     if (titleRef.current) {
       const split = new SplitText(titleRef.current, { type: "chars" });
-      
+
       gsap.from(split.chars, {
         y: 20,
-        opacity: 0.3,
+        opacity: 0,
         duration: 0.5,
         ease: "back.out(1.7)",
         stagger: {
@@ -71,71 +73,37 @@ const MainSection = forwardRef<HTMLElement, MainSectionProps>((props, ref) => {
     }
   }, []);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const { clientX, clientY } = e;
-      const { innerWidth, innerHeight } = window;
-      const x = (clientX - innerWidth / 2) / (innerWidth / 2);
-      const y = (clientY - innerHeight / 2) / (innerHeight / 2);
-      setRotation({ x: -y * 20, y: x * 20 });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
   return (
-    <section ref={ref} className={`w-full mx-auto ${props.className}`}>
-      <div className="h-svh bg-gradient-to-r from-safety-yellow to-bright-red-c to-60% relative overflow-hidden">
+    <section ref={ref} className={`${props.className} overflow-hidden`}>
+      <div className="h-full bg-gradient-to-r from-safety-yellow to-bright-red-c to-60% relative overflow-hidden flex flex-col justify-center">
         <div className="flex flex-col space-y-5 lg:flex-row justify-between lg:space-x-10">
-          <div ref={bodyRef} className="relative w-full z-10">
-            <div className="relative">
-              <Image
-                src="/main/IpBody_b.png"
-                alt="ipbody"
-                width={819}
-                height={893}
-              />
-              <div
-                className="absolute top-[35%] left-[35%] w-[40%] h-[40%]"
-                style={{
-                  transform: `perspective(1000px) rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
-                  transition: "transform 0.1s ease-out",
-                }}
-              >
-                <Image
-                  src="/main/IpFace.png"
-                  alt="Ipface"
-                  width={249}
-                  height={275}
-                />
-              </div>
-            </div>
+          <div ref={bodyRef} className="absolute top-0 lg:w-[80%] z-10">
+            <NextartIP className="lg:w-[45%] h-auto" />
           </div>
+          <div className="w-1/2" />
           <div className="w-full flex justify-center items-center">
-            <div className="min-h-[400px] flex flex-col justify-between gap-y-6 lg:gap-y-10 text-center lg:text-left z-10">
-              <p ref={titleRef} className="uppercase text-white text-3xl lg:text-4xl xl:text-4xl font-bold leading-tight">
-                {"Let's build the future together!"}
+            <div className="lg:min-h-[400px] flex flex-col justify-center gap-y-6 lg:gap-y-20 text-center lg:text-left z-10">
+              <p ref={titleRef} className="uppercase hidden lg:block lg:text-white text-xl lg:text-4xl xl:text-4xl font-bold leading-tight">
+                {"Let's build the future together"}
               </p>
               <div className="flex justify-center lg:justify-start gap-x-6 lg:gap-x-10">
-                <FaTwitter className="text-white text-2xl lg:text-3xl xl:text-6xl" />
-                <FaTelegram className="text-white text-2xl lg:text-3xl xl:text-6xl" />
-                <FaDiscord className="text-white text-2xl lg:text-3xl xl:text-6xl" />
+                <FaTwitter className="text-blue-400 lg:text-white text-6xl lg:text-3xl xl:text-6xl" />
+                <FaTelegram className="text-blue-400 lg:text-white text-6xl lg:text-3xl xl:text-6xl" />
+                <FaDiscord className="text-blue-400 lg:text-white text-6xl lg:text-3xl xl:text-6xl" />
               </div>
             </div>
           </div>
         </div>
-        {/* Move arrows outside the existing div structure */}
-        <Image
+        
+        {/* 修改箭头容器 */}
+        <div className="absolute inset-0 overflow-hidden">
+          <Image
             ref={arrow1Ref}
             src="/main/arrow01.png"
             alt={`arrow01`}
             width={508}
             height={257}
-            className="absolute top-[10%]"
+            className="absolute top-[2%]"
           />
           <Image
             ref={arrow2Ref}
@@ -143,7 +111,7 @@ const MainSection = forwardRef<HTMLElement, MainSectionProps>((props, ref) => {
             alt={`arrow02`}
             width={356}
             height={180}
-            className="absolute top-[50%]"
+            className="absolute top-[38%]"
           />
           <Image
             ref={arrow3Ref}
@@ -153,6 +121,7 @@ const MainSection = forwardRef<HTMLElement, MainSectionProps>((props, ref) => {
             height={75}
             className="absolute top-[80%]"
           />
+        </div>
       </div>
     </section>
   );
